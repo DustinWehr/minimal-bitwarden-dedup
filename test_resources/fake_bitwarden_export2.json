@@ -1,0 +1,37 @@
+{
+  "encrypted": false,
+  "folders": [
+    {
+      "id": "folderid1",
+      "name": "it's a folder with unicode α"
+    },
+    {
+      "id": "folderid2",
+      "name": "it's a folder"
+    }
+  ],
+  "items": [
+    {
+      "id": "blahblah",
+      "organizationId": null,
+      "folderId": null,
+      "type": 1,
+      "reprompt": 0,
+      "name": "notporn β",
+      "notes": null,
+      "favorite": false,
+      "login": {
+        "uris": [
+          {
+            "match": null,
+            "uri": "http://www.notporn.com"
+          }
+        ],
+        "username": "username",
+        "password": "password",
+        "totp": null
+      },
+      "collectionIds": null
+    }
+  ]
+}

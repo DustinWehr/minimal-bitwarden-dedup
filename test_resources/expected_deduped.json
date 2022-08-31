@@ -1,0 +1,14 @@
+{
+  "encrypted": false,
+  "folders": [],
+  "items": [
+    {
+      "id": "1",
+      "foo": "SECRET DATA"
+    },
+    {
+      "id": "3",
+      "foo": "DISTINCT SECRET DATA"
+    }
+  ]
+}
