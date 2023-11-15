@@ -4,7 +4,7 @@ import json
 VAULT_WITH_DUPS_PATH = "/mnt/ramdisk/my_bitwarden_export.json"
 VAULT_DEDUPED_OUTPUT_PATH = "/mnt/ramdisk/my_unencrypted_deduped_bitwarden_export.json"
 
-def dedup(vault_with_dups_path, vault_deduped_output_path, paranoid=True):
+def dedup(vault_with_dups_path, vault_deduped_output_path):
     with open(vault_with_dups_path, encoding='utf-8', mode='r') as vaultfile:
         vault_json = json.load(vaultfile)
 
