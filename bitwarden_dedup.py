@@ -1,5 +1,6 @@
 import json
 from urllib.parse import urlparse
+import os, sys
 
 # Your RAM disk file paths here
 VAULT_WITH_DUPS_PATH = "/mnt/ramdisk/my_bitwarden_export.json"
@@ -8,6 +9,7 @@ VAULT_DEDUPED_OUTPUT_PATH = "/mnt/ramdisk/my_unencrypted_deduped_bitwarden_expor
 if not VAULT_WITH_DUPS_PATH or not VAULT_DEDUPED_OUTPUT_PATH:
     print("Please export the VAULT_WITH_DUPS_PATH and VAULT_DEDUPED_OUTPUT_PATH environment variables.")
     sys.exit(1)
+
 
 class BitwardenItem:
     def __init__(self, item):
