@@ -57,8 +57,6 @@ class BitwardenItem:
                 parsed_uri = urlparse(uri)
                 base_uri = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
 
-                # item["login"]["uris"][0]["uri"] = base_uri
-                # return name + str(item.get('login'))
                 return name + base_uri + username
         else:
             # print("Error, unhandled type", item)
