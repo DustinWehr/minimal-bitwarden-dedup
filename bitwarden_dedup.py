@@ -22,6 +22,7 @@ class BitwardenItem:
     def __hash__(self) -> int:
         if not self._key:
             self._key = hash(self.getKey())
+            # print(self.getKey(), self._key)
         return self._key
 
     def getKey(self) -> str:
@@ -58,7 +59,7 @@ class BitwardenItem:
                 # return name + str(item.get('login'))
                 return name + base_uri + username
         else:
-            print("Error, unhandled type", item)
+            # print("Error, unhandled type", item)
             return name + str(item)
 
 
