@@ -5,18 +5,24 @@ from urllib.parse import urlparse
 VAULT_WITH_DUPS_PATH = "/mnt/ramdisk/my_bitwarden_export.json"
 VAULT_DEDUPED_OUTPUT_PATH = "/mnt/ramdisk/my_unencrypted_deduped_bitwarden_export.json"
 
+if not VAULT_WITH_DUPS_PATH or not VAULT_DEDUPED_OUTPUT_PATH:
+    print("Please export the VAULT_WITH_DUPS_PATH and VAULT_DEDUPED_OUTPUT_PATH environment variables.")
+    sys.exit(1)
 
 class BitwardenItem:
     def __init__(self, item):
         self.content = item
         self.id = item["id"]
         self.content["id"] = ""
+        self._key = None
 
     def __eq__(self, other):
-        return self.getKey() == other.getKey()
+        return self.__hash__() == other.__hash__()
 
     def __hash__(self) -> int:
-        return hash(self.getKey())
+        if not self._key:
+            self._key = hash(self.getKey())
+        return self._key
 
     def getKey(self) -> str:
         item = self.content
@@ -35,9 +41,13 @@ class BitwardenItem:
             return name + str(notes)
         elif 'login' in item.keys():
             # is login items
-                uris = item["login"]["uris"]
+                uris: list = item["login"]["uris"]
 
-                uri = uris[0]["uri"] if uris else ''
+                if not uris:
+                    print(item["name"], "has no uris", item)
+                    return name + str(item.get('login'))
+
+                uri = uris[0]["uri"]
                 username = item["login"]["username"] or ''
 
                 # https://stackoverflow.com/questions/9626535/get-protocol-host-name-from-url
@@ -60,12 +70,12 @@ def dedup(vault_with_dups_path, vault_deduped_output_path):
     BitWarden seems to use a login item's unique id as salt (or something like that), so there would
     be no duplicates in the encrypted file."""
 
-    items = [BitwardenItem(x) for x in vault_json["items"]]
+    items: list[BitwardenItem] = [BitwardenItem(x) for x in vault_json["items"]]
 
     # use a set to detect duplicates.
     # two json item objects are duplicates if and only if, after their "id" keys are removed, they
     # have the same string representations (same value of json.dumps).
-    item_identities = set()
+    item_identities: set[BitwardenItem] = set()
 
     # will be the new contents of the "items" map
     deduped_items = []
