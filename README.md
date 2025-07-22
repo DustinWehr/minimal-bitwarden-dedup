@@ -12,13 +12,17 @@ Because you'll restart your computer at the end.
 Don't save your unencrypted vault to persistent storage (HDD/SSD), as you'd need to securely erase 
 it, which is not as easy as some might expect.
 
-### Linux (and OSX?)
+### Linux
 
 Makes a 10MB RAM disk.
 ```
 $ sudo mkdir /mnt/ramdisk
 $ sudo mount --types tmpfs --options rw,size=10M tmpfs /mnt/ramdisk
 ```
+
+### OSX
+
+__Unverified by me__ contribution by @RBBlackstone here: https://github.com/DustinWehr/minimal-bitwarden-dedup/issues/3
 
 ### Windows
 
